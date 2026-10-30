@@ -45,12 +45,34 @@ def test_book_content_correct(page: Page, db_connection):
     actual_books = books.all_inner_texts()
     assert actual_books == expected_books
 
-def test_form_submission_recieved(page: Page, db_connection):
-    db_connection.seed("seeds/book_store_seed.sql")
-    page.goto("http://127.0.0.1:5001/books")
-    page.locator("#title").fill("The Chronicles of Geronimo (the cat)")
+def test_create_new_book(page: Page):
+    connection = DatabaseConnection()
+    connection.connect()
+    connection.execute("TRUNCATE TABLE users;")
+    connection.execute("INSERT INTO users (username, password) values ('test', '1234');")
+
+    page.goto("http://localhost:5001/sessions/new")
+    page.locator("#username").fill("test")
+    page.locator("#password").fill("1234")
+    page.get_by_role("button").click()
+    expect(page).to_have_url("http://localhost:5001/books")
+
+    page.goto("http://localhost:5001/books")
+    page.locator("#title").fill("The Chroicles of Geronimo (the cat)")
     page.locator("#author").fill("Geronimo")
     page.get_by_role("button", name="Submit").click()
-    books = page.locator('li')
-    new_book = books.all_inner_texts()[-1]
-    assert new_book == "The Chronicles of Geronimo (the cat) by Geronimo"
+    expect(page.locator("li").last).to_have_text("The Chroicles of Geronimo (the cat) by Geronimo")
+
+
+def test_film_content_correct(page: Page, db_connection):
+    db_connection.seed("seeds/book_store_seed.sql")
+    page.goto("http://127.0.0.1:5001/films")
+    films = page.locator("li")
+    expected_films = [
+        'Alien, 1979 by Scott, Ridley',                   
+        'Braveheart, 1995 by Gibson, Mel',             
+        '2001: A Space Oddysey, 1968 by Kubrick, Stanley',
+        'Blade Runner, 1982 by Scott, Ridley'            
+    ]
+    actual_films = films.all_inner_texts()
+    assert actual_films == expected_films

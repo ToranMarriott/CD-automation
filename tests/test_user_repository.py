@@ -21,3 +21,8 @@ def test_create(db_connection):
         User('geralt666', 'geraltpassword', 3),
         User('ciri33', 'ciripassword', 4)
     ]
+
+def test_find_with_username(db_connection):
+    db_connection.seed("seeds/book_store_seed.sql")
+    repo = UserRepository(db_connection)
+    assert repo.find_by_username('tony29') == User("tony29", "tonypassword", 1)
