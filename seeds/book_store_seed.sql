@@ -5,7 +5,9 @@ DROP TABLE IF EXISTS films CASCADE;
 CREATE TABLE books (
     id SERIAL PRIMARY KEY,
     title TEXT,
-    author TEXT
+    author TEXT,
+    synopsis TEXT,
+    star_rating INT
 );
 
 CREATE TABLE users (
@@ -21,10 +23,10 @@ CREATE TABLE films (
     director TEXT
 );
 
-INSERT INTO books (title, author) VALUES ('The Gruffalo', 'Julia Donaldson');
-INSERT INTO books (title, author) VALUES ('Ada Twist, Scientist', 'Andrea Beaty');
-INSERT INTO books (title, author) VALUES ('The Girl Who Drank the Moon', 'Kelly Barnhill');
-INSERT INTO books (title, author) VALUES ('Dragons in a Bag', 'Zetta Elliott');
+INSERT INTO books (title, author, synopsis, star_rating) VALUES ('The Gruffalo', 'Julia Donaldson', 'A clever mouse invents a terrifying monster called the Gruffalo to scare off the predators in the woods, only to meet the real thing and have to outwit it too.', 5);
+INSERT INTO books (title, author, synopsis, star_rating) VALUES ('Ada Twist, Scientist', 'Andrea Beaty', 'Ada, an endlessly curious young girl, drives her family to distraction with constant experiments and questions as she tries to figure out how the world works.', 4);
+INSERT INTO books (title, author, synopsis, star_rating) VALUES ('The Girl Who Drank the Moon', 'Kelly Barnhill', 'A witch accidentally feeds an abandoned baby moonlight instead of starlight, filling her with powerful magic that she must learn to control as she grows up.', 2);
+INSERT INTO books (title, author, synopsis, star_rating) VALUES ('Dragons in a Bag', 'Zetta Elliott', 'A boy named Jake is sent to spend the day with a mysterious woman who turns out to be a witch, and he’s tasked with delivering baby dragons from her bag to a magical world.', 5);
 
 INSERT INTO users (username, password) VALUES ('tony29', 'tonypassword');
 INSERT INTO users (username, password) VALUES ('laura85', 'laurapassword');

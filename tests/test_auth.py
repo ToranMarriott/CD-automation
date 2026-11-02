@@ -46,8 +46,5 @@ def test_failed_auth_playwright(page: Page, db_connection):
 
 def test_failed_auth_creates_book(page: Page, db_connection):
     db_connection.seed("seeds/book_store_seed.sql")
-    page.goto("http://localhost:5001/books")
-    page.locator("#title").fill("test")
-    page.locator("#author").fill("test")
-    page.get_by_role("button").click()
+    page.goto("http://localhost:5001/books/add_book")
     assert page.url == "http://localhost:5001/sessions/new"

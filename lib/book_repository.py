@@ -8,21 +8,23 @@ class BookRepository:
         rows = self._connection.execute('SELECT * from books')
         books = []
         for row in rows:
-            item = Book(row["title"], row["author"], row["id"])
+            item = Book(row["title"], row["author"], row["synopsis"], row["star_rating"] ,row["id"])
             books.append(item)
         return books
 
-    # # Find a single book by their id
-    # def find(self, book_id):
-    #     rows = self._connection.execute(
-    #         'SELECT * from books WHERE id = %s', [book_id])
-    #     row = rows[0]
-    #     return book(row["id"], row["name"], row["genre"])
+    def find(self, book_id):
+        rows = self._connection.execute(
+            'SELECT * from books WHERE id = %s', [book_id])
+        if rows:
+            row = rows[0]
+            return Book(row["title"], row["author"], row["synopsis"], row["star_rating"] ,row["id"])
+        else: 
+            return None
 
     def create(self, book):
         self._connection.execute(
-            'INSERT INTO books (title, author) VALUES (%s, %s)',
-            [book.title, book.author]
+            'INSERT INTO books (title, author, synopsis, star_rating) VALUES (%s, %s, %s, %s)',
+            [book.title, book.author, book.synopsis, book.star_rating]
         )
         return None
 

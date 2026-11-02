@@ -83,6 +83,7 @@ jobs:
             docker rm book_store || true
             docker image prune -f || true
             docker run -d \
+              -e FLAGSMITH_ENVIRONMENT_KEY='${{ secrets.FLAGSMITH_ENVIRONMENT_KEY }}' \
               --name book_store \
               --network book_store_network \
               --restart unless-stopped \

@@ -21,18 +21,12 @@
             <h2>Book List</h2>
             <ul>
                 {% for book in books %}
-                    <li>{{book.title}} by {{book.author}}</li>
+                    <li>{{book.title}} by {{book.author}} <br>
+                        {{book.synopsis}} <br>
+                        {{book.star_rating}}/5 Stars</li>
                 {% endfor %}
             </ul>
-            <form method="POST" action="/books">
-                <label for="title">Title</label>
-                <input type="text" id="title" name="title"><br>
-
-                <label for="author">Author</label>
-                <input type="text" id="author" name="author"><br>
-
-                <input type="submit" value="Submit">
-            </form>
+            <a href="/books/add_book">Add More Books!</a>
         </main>
     </body>
 </html>
